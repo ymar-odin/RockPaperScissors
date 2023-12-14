@@ -1,50 +1,53 @@
 function getComputerChoice() {
     const array = ['rock', 'paper', 'scissors'];
     let randomChoice = array[Math.floor(Math.random() * array.length)];
-    console.log(randomChoice);
     return randomChoice;
 }
 
 function playRound(playerSelection, computerSelection) {
+    
     let result;
+    let resultWin = `You win! ${playerSelection} beats ${computerSelection}`;
+    let resultLose = `You lose... ${playerSelection} loses to ${computerSelection}`;
+    let resultTie = `It's a tie! ${playerSelection} is equal to ${computerSelection}`;
 
     if (playerSelection === 'rock') {
 
         switch(computerSelection) {
             case 'rock':
-                result = `It's a tie! ${playerSelection} is equal to ${computerSelection}`;
+                result = resultTie;
                 break;
             case 'paper':
-                result = `You lose... ${playerSelection} loses to ${computerSelection}`;
+                result = resultLose;
                 break;
             case 'scissors':
-                result = `You win! ${playerSelection} beats ${computerSelection}`;
+                result = resultWin;
                 break;
         }
     }   else if (playerSelection === 'paper') {
 
         switch(computerSelection) {
             case 'rock':
-                result = `You win! ${playerSelection} beats ${computerSelection}`;
+                result = resultWin;
                 break;
             case 'paper':
-                result = `It's a tie! ${playerSelection} is equal to ${computerSelection}`;
+                result = resultTie;
                 break;
             case 'scissors':
-                result = `You lose... ${playerSelection} loses to ${computerSelection}`;
+                result = resultLose;
                 break;
         }
     }   else {
 
         switch(computerSelection) {
             case 'rock':
-                result = `You lose... ${playerSelection} loses to ${computerSelection}`;
+                result = resultLose;
                 break;
             case 'paper':
-                result = `You win! ${playerSelection} beats ${computerSelection}`;
+                result = resultWin;
                 break;
             case 'scissors':
-                result = `It's a tie! ${playerSelection} is equal to ${computerSelection}`;
+                result = resultTie;
                 break;
         }    
     }
@@ -52,6 +55,30 @@ function playRound(playerSelection, computerSelection) {
     return result;
 }
 
-const playerSelection = 'rock';
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection.toLowerCase(), computerSelection));
+// const playerSelection = 'scissors';
+// const computerSelection = getComputerChoice();
+// let gameResult = playRound(playerSelection.toLowerCase(), computerSelection);
+
+function game() {
+
+    let playerScore = 0;
+    let computerScore = 0;
+
+    for(let i = 0; i < 5; i++) {
+
+    const playerSelection = 'scissors';
+    const computerSelection = 'rock';
+    let gameResult = playRound(playerSelection.toLowerCase(), computerSelection);
+ 
+
+    if(gameResult.search('win')) {
+        playerScore++;
+    } else if(gameResult.search('lose')) {
+        computerScore++;
+    } else {}
+    
+    console.log(gameResult);
+    console.log(playerScore);
+    console.log(computerScore); 
+}
+}
