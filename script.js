@@ -1,3 +1,16 @@
+const choiceBut = document.querySelectorAll('button');
+const resultArea = document.querySelector('.results');
+let newResultPara = document.createElement('p');  
+let scorePara = document.createElement('p'); 
+let gameplayPara = document.createElement('p');
+let finalResPara = document.createElement('p');
+let counter = 0;
+let playerSelection;
+let playerScore = 0;
+let computerScore = 0;
+let tie = 0;
+
+
 function getComputerChoice() {
     const array = ['rock', 'paper', 'scissors'];
     let randomChoice = array[Math.floor(Math.random() * array.length)];
@@ -51,23 +64,17 @@ function playRound(playerSelection, computerSelection) {
                 break;
         }    
     }
-
+    newResultPara.textContent = result;
+    resultArea.appendChild(newResultPara);
     return result;
 }
 
 
 function game() {
 
-    let playerScore = 0;
-    let computerScore = 0;
-    let tie = 0;
-
-    for(let i = 0; i < 5; i++) {
-
-    const playerSelection = prompt('Paper, Rock or Scissors?');
     const computerSelection = getComputerChoice();
     let gameResult = playRound(playerSelection.toLowerCase(), computerSelection);
- 
+    
 
     if(gameResult.search('win') + 1) {
         playerScore++;
@@ -76,14 +83,27 @@ function game() {
     } else {
         tie++;
     }
-    console.log(`Player chose ${playerSelection}, Computer chose ${computerSelection}`);
-    console.log(`Player's score is ${playerScore}, Computer's score is ${computerScore}`);
-}   
-    if (playerScore > computerScore){
-        console.log(`Player Wins!`);
-    } else if (playerScore < computerScore) {
-        console.log(`Player Loses..`);
-    } else {
-        console.log(`It's a tie :|`);
-    }
+    gameplayPara.textContent = `Player chose ${playerSelection}, Computer chose ${computerSelection}`
+    resultArea.appendChild(gameplayPara);
+    scorePara.textContent = `Player's score is ${playerScore}, Computer's score is ${computerScore}`;
+    resultArea.appendChild(scorePara);
+
+
+    if (playerScore === 5){
+        finalResPara.textContent = `Player Wins!`;
+        resultArea.appendChild(finalResPara);
+    } else if (computerScore === 5) {
+        finalResPara.textContent = `Computer Wins!`;
+        resultArea.appendChild(finalResPara);
+    } 
 }
+
+
+for (let i = 0; i < choiceBut.length; i++) {
+choiceBut[i].addEventListener('click', function(){
+     playerSelection = choiceBut[i].textContent;
+     game();
+     counter++;
+    })
+}
+
